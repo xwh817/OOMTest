@@ -1,5 +1,6 @@
 package xwh.demo.oom;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
 		printInfo();
 	}
 
+	public void leakTest(View view) {
+		this.startActivity(new Intent(this, LeakerActivity.class));
+	}
+
 	private void printInfo() {
 		count++;
 		String maxMemory = getFormatSize(Runtime.getRuntime().maxMemory());
@@ -57,4 +62,13 @@ public class MainActivity extends AppCompatActivity {
 		return Formatter.formatFileSize(this, size);
 	}
 
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		// 退出时清理，原对象都成为垃圾，但是profile中看到内存并没有马上释放。稍后系统会自动释放。
+		mList.clear();
+		mBitmaps.clear();
+	}
 }

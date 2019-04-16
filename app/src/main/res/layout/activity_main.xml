@@ -17,6 +17,12 @@
 		android:onClick="requestBitmapMemory"
 		android:text="使用图片内存"/>
 
+	<Button
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:onClick="leakTest"
+		android:text="泄漏测试"/>
+
 	<ScrollView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
